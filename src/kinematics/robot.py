@@ -1,6 +1,3 @@
-from typing import Tuple
-
-
 class Robot:
     def __init__(self):
         self.hip_link = 0
