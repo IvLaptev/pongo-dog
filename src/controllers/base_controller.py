@@ -1,6 +1,13 @@
-class BaseController():
+from abc import ABCMeta, abstractmethod
+
+
+class BaseController(metaclass=ABCMeta):
     def __init__(self) -> None:
         self.clear()
+
+    @abstractmethod
+    def listen(self) -> None:
+        pass
 
     def clear(self) -> None:
         self.forward = False
