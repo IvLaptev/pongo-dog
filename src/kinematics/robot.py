@@ -2,16 +2,14 @@ from typing import Tuple
 
 
 class Robot:
-    hip_link: float
-    thigh_link: float
-    calf_link: float
-    height: float
-
     def __init__(self):
         self.hip_link = 0
         self.thigh_link = 10
         self.calf_link = 13
         self.height = 11.4
+
+    def print_data(self):
+        print(self.hip_link)
 
 
 robot = Robot()
