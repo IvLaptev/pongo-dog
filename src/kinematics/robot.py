@@ -8,9 +8,6 @@ class Robot:
         self.calf_link = 13
         self.height = 11.4
 
-    def print_data(self):
-        print(self.hip_link)
-
 
 robot = Robot()
 
