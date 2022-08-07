@@ -1,7 +1,7 @@
 from math import cos, sin
 from kinematics.robot import robot
 
-def angles_to_points(q1: float, q2: float):
+def angles_to_points_2d(q1: float, q2: float):
     x1 = sin(q1) * robot.thigh_link
     y1 = -cos(q1) * robot.thigh_link
 

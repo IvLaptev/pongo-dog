@@ -2,7 +2,7 @@ from math import sqrt, pi, acos, asin
 from typing import Tuple
 from kinematics.robot import robot
 
-def position_to_angles(x: float, y: float) -> Tuple[float, float]:
+def position_to_angles_2d(x: float, y: float) -> Tuple[float, float]:
     '''
     Превращает точку из двумерного конфигурационного пространства двух
     последних частей ноги в углы поворота, которые позволяют поставить
