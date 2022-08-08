@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import List
+import numpy as np
 from controllers.base_controller import BaseController
 from motions.simple_move import SimpleMove
 
@@ -14,12 +15,12 @@ class RobotStates(Enum):
 
 class Robot():
     state: RobotStates
-    angles: List[float]
+    angles: np.ndarray
 
     def __init__(self, controller: BaseController) -> None:
         self.state = RobotStates.STAY
         self.controller = controller
-        self.motion = SimpleMove([(0, 0)] * 4, 5, [0] * 12)
+        self.motion = SimpleMove([(0, 0)] * 4, 5, np.array([0] * 12)) # TODO: изменить начальную позицию, прописать её в README.md
 
     def control(self) -> None:
         '''
