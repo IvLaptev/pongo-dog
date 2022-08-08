@@ -22,6 +22,7 @@ class Robot():
     def __init__(self, controller: BaseController) -> None:
         self.state = RobotStates.STAY
         self.controller = controller
+        self.angles = np.array([-1, 2] * 4)
         self.motion = SimpleMove([(0, 0)] * 4, 5, np.array([0] * 12)) # TODO: изменить начальную позицию, прописать её в README.md
 
     def control(self) -> None:

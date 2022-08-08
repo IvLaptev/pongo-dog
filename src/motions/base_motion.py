@@ -1,10 +1,12 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Tuple
+from typing import List, Tuple, Union
+from numpy import ndarray
 
 
 class BaseMotion(metaclass=ABCMeta):
     duration: int
-    target: List[Tuple[float, float]]
+    target: Union[List[Tuple[float, float]],  List[float], ndarray]
+    name: str
 
     def __init__(self) -> None:
         self.tick = 0

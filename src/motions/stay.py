@@ -5,6 +5,8 @@ from motions.simple_move import SimpleMove
 
 
 class Stay(BaseMotion):
+    name = "STAY"
+    
     def __init__(self, position: np.ndarray) -> None:
         super().__init__()
 
