@@ -7,6 +7,7 @@ import numpy as np
 class SimpleMove(BaseMotion):
     def __init__(self, target: List[Tuple[float, float]], duration: int, position: np.ndarray) -> None:
         super().__init__()
+        
         self.target = target
         self.duration = duration
         self.steps = (np.concatenate([position_to_angles_2d(*i) for i in target]) - position) / duration

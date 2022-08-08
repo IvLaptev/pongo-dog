@@ -14,3 +14,6 @@ class BaseController(metaclass=ABCMeta):
         self.back = False
         self.turn_left = False
         self.turn_right = False
+
+    def is_empty(self) -> bool:
+        return not (self.forward or self.back or self.turn_left or self.turn_right)

@@ -1,8 +1,10 @@
 from enum import Enum
+from turtle import position
 from typing import List
 import numpy as np
 from controllers.base_controller import BaseController
 from motions.simple_move import SimpleMove
+from motions.stay import Stay
 
 
 class RobotStates(Enum):
@@ -32,9 +34,14 @@ class Robot():
         self.controller.clear() # Очистка показаний контроллера для следующей итерации
 
         # Изменение состояния
+        self.check_state()
 
         # Подсчёт позиции
         self.angles = self.motion(self.angles)
 
         # Отправка управляющих сигналов в космос (расп)
-        pass
+        
+    def check_state(self) -> None:
+        if self.controller.is_empty():
+            self.state = RobotStates.STAY
+            self.motion = Stay(position)
