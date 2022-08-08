@@ -1,6 +1,5 @@
 from enum import Enum
 from turtle import position
-from typing import List
 import numpy as np
 from controllers.base_controller import BaseController
 from motions.simple_move import SimpleMove
@@ -8,11 +7,12 @@ from motions.stay import Stay
 
 
 class RobotStates(Enum):
-    STAY = 1
-    SL_FORWARD = 2
-    SL_BACK = 3
-    TROT_FORWARD = 4
-    TROT_BACK = 5
+    UNDEFINED = -1
+    STAY = 0
+    SL_FORWARD = 1
+    SL_BACK = 2
+    TROT_FORWARD = 3
+    TROT_BACK = 4
 
 
 class Robot():
@@ -37,11 +37,15 @@ class Robot():
         self.check_state()
 
         # Подсчёт позиции
-        self.angles = self.motion(self.angles)
+        if self.motion:
+            self.angles = self.motion(self.angles)
 
         # Отправка управляющих сигналов в космос (расп)
         
     def check_state(self) -> None:
-        if self.controller.is_empty():
+        if self.controller.is_empty() and self.state != RobotStates.STAY:
             self.state = RobotStates.STAY
             self.motion = Stay(position)
+        else:
+            self.state = RobotStates.UNDEFINED
+            self.motion = None
