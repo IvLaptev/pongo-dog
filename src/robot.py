@@ -1,5 +1,4 @@
 from enum import Enum
-from turtle import position
 import numpy as np
 from controllers.base_controller import BaseController
 from motions.simple_move import SimpleMove
@@ -20,9 +19,10 @@ class Robot():
     angles: np.ndarray
 
     def __init__(self, controller: BaseController) -> None:
-        self.state = RobotStates.STAY
+        self.tick = 0
+        self.state = RobotStates.UNDEFINED
         self.controller = controller
-        self.angles = np.array([-1, 2] * 4)
+        self.angles = np.array([0, -1, 2] * 4)
         self.motion = SimpleMove([(0, 0)] * 4, 5, np.array([0] * 12)) # TODO: изменить начальную позицию, прописать её в README.md
 
     def control(self) -> None:
@@ -31,22 +31,21 @@ class Robot():
         '''
         
         # Получение данных с контроллера (плойка, клава)
-        print(self.controller.forward)
         self.controller.clear() # Очистка показаний контроллера для следующей итерации
 
         # Изменение состояния
-        self.check_state()
+        if (self.tick > 5):
+            self.check_state()
 
         # Подсчёт позиции
         if self.motion:
-            self.angles = self.motion(self.angles)
+            self.motion.print()
+            self.angles = self.motion.next_tick(self.angles)
 
         # Отправка управляющих сигналов в космос (расп)
+        self.tick += 1
         
     def check_state(self) -> None:
         if self.controller.is_empty() and self.state != RobotStates.STAY:
             self.state = RobotStates.STAY
-            self.motion = Stay(position)
-        else:
-            self.state = RobotStates.UNDEFINED
-            self.motion = None
+            self.motion = Stay(self.angles)

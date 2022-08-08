@@ -1,4 +1,3 @@
-from typing import List, Tuple
 import numpy as np
 from motions.base_motion import BaseMotion
 from motions.simple_move import SimpleMove
@@ -6,7 +5,7 @@ from motions.simple_move import SimpleMove
 
 class Stay(BaseMotion):
     name = "STAY"
-    
+
     def __init__(self, position: np.ndarray) -> None:
         super().__init__()
 

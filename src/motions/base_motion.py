@@ -18,3 +18,9 @@ class BaseMotion(metaclass=ABCMeta):
 
     def is_finished(self) -> None:
         return self.tick >= self.duration
+
+    def print(self) -> None:
+        if self.preparation != None and not self.preparation.is_finished():
+            self.preparation.print()
+        else:
+            print(self.name, self.target)
