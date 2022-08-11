@@ -5,9 +5,20 @@ import numpy as np
 
 
 class SimpleMove(BaseMotion):
+    '''
+    Простое перемещение ног из одной точки в другую.
+    '''
     name = 'MOVE'
 
     def __init__(self, target: List[Tuple[float, float]], duration: int, position: np.ndarray) -> None:
+        '''
+        Параметры:
+            target:     целевая позиция (задётся координатами)
+
+            duration:   длительность (в тиках)
+            
+            position:   текущее положение робота (в углах)
+        '''
         super().__init__()
 
         self.target = np.zeros((12,))
