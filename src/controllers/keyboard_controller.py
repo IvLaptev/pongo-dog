@@ -17,12 +17,11 @@ class KeyboardController(BaseController):
 
     def process_key(self, key: str):
         self.clear()
-
-        if key == 'w' or key == 'ц':
+        if key == 'w':
             self.forward = True
-        elif key == 's' or key == 'ы':
+        elif key == 's':
             self.back = True
-        elif key == 'a' or key == 'ф':
+        elif key == 'a':
             self.turn_left = True
-        elif key == 'd' or key == 'в':
+        elif key == 'd':
             self.turn_right = True
