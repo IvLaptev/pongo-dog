@@ -40,7 +40,7 @@ class Robot():
 
         # Подсчёт позиции
         if self.motion:
-            # self.motion.print()
+            self.motion.print()
             self.angles = self.motion.next_tick(self.angles)
 
         # Отправка управляющих сигналов в космос (расп)
@@ -52,4 +52,4 @@ class Robot():
             self.motion = Stay(self.angles)
         elif self.controller.forward and self.state != RobotStates.SL_FORWARD:
             self.state = RobotStates.SL_FORWARD
-            self.motion = SingleLegMove(12, self.angles)
+            self.motion = SingleLegMove(51, self.angles)

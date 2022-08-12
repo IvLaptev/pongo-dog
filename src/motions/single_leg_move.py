@@ -1,4 +1,5 @@
 from math import cos, pi, sin
+from kinematics.robot import robot
 from motions.base_motion import BaseMotion
 import numpy as np
 from motions.simple_move import SimpleMove
@@ -12,7 +13,8 @@ def get_single_leg_position(step_height: float, step_duration: int, leg_number: 
         rotation = pi * (tick / step_part_duration - 1)
         return (step_height * cos(rotation), step_height * sin(rotation))
     else:
-        return (step_height * (2 * tick / (3 * step_part_duration) - 1), 0) 
+        tick = tick - step_part_duration
+        return (step_height * (1 - 2 * tick / (3 * step_part_duration)), 0) 
 
 
 class SingleLegMove(BaseMotion):
@@ -32,18 +34,17 @@ class SingleLegMove(BaseMotion):
         super().__init__()
 
         self.duration = step_duration
-        step_height = 1
 
         # Начальное положение для движения робота вперёд
-        start_position = [(get_single_leg_position(step_height, self.duration, i, 0)) for i in range(4)]
-        print(start_position)
-        self.preparation = SimpleMove(start_position, 5, position)
+        self.target = [(get_single_leg_position(robot.step_height, self.duration, i, 0)) for i in range(4)]
+        self.preparation = SimpleMove(self.target, 5, position)
 
     def next_tick(self, position: np.ndarray) -> None:
         if self.preparation.is_finished():
-            
+            self.target = [(get_single_leg_position(robot.step_height, self.duration, i, self.tick)) for i in range(4)]
+            move = SimpleMove(self.target, 1, position)
             
             self.tick += 1
-            return self.target
+            return move.next_tick(position)
 
         return self.preparation.next_tick(position)
