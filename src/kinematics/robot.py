@@ -4,6 +4,7 @@ class Robot:
         self.thigh_link = 10
         self.calf_link = 13
         self.height = 11.4
+        self.step_height = 1
 
 
 robot = Robot()

@@ -2,6 +2,7 @@ from enum import Enum
 import numpy as np
 from controllers.base_controller import BaseController
 from motions.simple_move import SimpleMove
+from motions.single_leg_move import SingleLegMove
 from motions.stay import Stay
 
 
@@ -31,7 +32,7 @@ class Robot():
         '''
         
         # Получение данных с контроллера (плойка, клава)
-        self.controller.clear() # Очистка показаний контроллера для следующей итерации
+        # self.controller.clear() # Очистка показаний контроллера для следующей итерации
 
         # Изменение состояния
         if (self.tick > 5):
@@ -49,3 +50,6 @@ class Robot():
         if self.controller.is_empty() and self.state != RobotStates.STAY:
             self.state = RobotStates.STAY
             self.motion = Stay(self.angles)
+        elif self.controller.forward and self.state != RobotStates.SL_FORWARD:
+            self.state = RobotStates.SL_FORWARD
+            self.motion = SingleLegMove(51, self.angles)

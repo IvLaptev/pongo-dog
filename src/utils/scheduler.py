@@ -11,11 +11,11 @@ class Scheduler:
     def __init__(self, func_name: str, obj: object, interval: float):
         '''
         Параметры:
-            func_name - название функции, которая будет вызываться
+            func_name:  название функции, которая будет вызываться
 
-            obj - объект, на котором будет вызываться метод
+            obj:        объект, на котором будет вызываться метод
 
-            interval - время между вызовами (секунды)
+            interval:   время между вызовами (секунды)
         '''
         
         self.func = getattr(obj, func_name)

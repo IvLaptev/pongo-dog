@@ -4,7 +4,11 @@ from motions.simple_move import SimpleMove
 
 
 class Stay(BaseMotion):
-    name = "STAY"
+    '''
+    Стояние на месте. Подразумевает фиксацию всех ног в точке (0, 0).
+    '''
+    
+    name = 'STAY'
 
     def __init__(self, position: np.ndarray) -> None:
         super().__init__()
@@ -13,7 +17,8 @@ class Stay(BaseMotion):
         self.preparation = SimpleMove(self.target, 5, position)
 
     def next_tick(self, position: np.ndarray) -> np.ndarray:
-        if self.preparation.is_finished():
-            return self.target
+        if not self.preparation.is_finished():
+            self.target = self.preparation.next_tick(position)
 
-        return self.preparation.next_tick(position)
+        return self.target
+
